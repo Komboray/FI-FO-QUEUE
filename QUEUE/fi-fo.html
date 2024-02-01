@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFO Queue</title>
+    <style>
+        /* Add some basic styling for demonstration purposes */
+        .queue {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .queue div {
+            border: 1px solid #333;
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="queue" id="queue">
+    <!-- Initial divs in the queue -->
+    <div onclick="removeFromQueue(this)">Item 1</div>
+    <div onclick="removeFromQueue(this)">Item 2</div>
+    <div onclick="removeFromQueue(this)">Item 3</div>
+</div>
+
+<button onclick="addToQueue()">Add New Item</button>
+
+<script>
+    // Array to represent the FIFO queue
+    const fifoQueue = [];
+
+    // Function to remove a div from the queue
+    function removeFromQueue(element) {
+        // Remove the first item from the array (FIFO)
+        fifoQueue.shift();
+        updateQueueDisplay();
+    }
+
+    // Function to add a new div to the end of the queue
+    function addToQueue() {
+        // Add a new item to the end of the array
+        fifoQueue.push('New Item');
+        updateQueueDisplay();
+    }
+
+    // Function to update the display based on the current queue
+    function updateQueueDisplay() {
+        const queueContainer = document.getElementById('queue');
+        
+        // Clear the current content of the container
+        queueContainer.innerHTML = '';
+
+        // Add divs for each item in the queue
+        fifoQueue.forEach(item => {
+            const newDiv = document.createElement('div');
+            newDiv.innerHTML = item;
+            newDiv.onclick = function () {
+                removeFromQueue(this);
+            };
+            queueContainer.appendChild(newDiv);
+        });
+    }
+</script>
+
+</body>
+</html>
